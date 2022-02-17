@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- jquery 사용하기 위해 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <title>USGTF-KOREA 공문서관리</title>
+</head>
+
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed; width: 100%">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="main0">USGTF-KOREA</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Null</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Null</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+
+<dib style="display: flex; justify-content: center; padding-top: 100px; background-color: #E0E0E0">
+    <dib style="width: 900px; height: 850px; display: flex; flex-direction: row; padding: 40px">
+        <?$board_id=$_GET['board_id'];?>
+        <div id="board_write" style="justify-content: center; width: 500px; height: 250px; background-color: white;">
+            <h4>문서 작성하기</h4>
+            <div id="write_area">
+                <form enctype="multipart/form-data" action="write_ok.php?board_id=<?echo $board_id;?>" method="post">
+                    <label for="type"> 구분 : </label>
+                    <select id="type" name="type">
+                        <option value="생산">생산</option>
+                        <option value="발송">발송</option>
+                        <option value="접수">접수</option>
+                        </optgroup>
+                    </select>
+                    <label for="depart"> 상세업무명 : </label>
+                    <select id="depart" name="depart">
+                        <option value="회계업무">회계업무</option>
+                        <option value="행정업무">행정업무</option>
+                        <option value="상담업무">상담업무</option>
+                        <option value="제휴관련">제휴관련</option>
+                        <option value="정회원교육">정회원교육</option>
+                        <option value="대회관련">대회관련</option>
+                        <option value="시상식">시상식</option>
+                        <option value="세미나">세미나</option>
+                        </optgroup>
+                    </select>
+                    <div>
+
+                    </div>
+                    <label for="docNum"> 문서구분 : </label>
+                    <select id="docNum" name="docNum">
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        </optgroup>
+                    </select>
+                    <label for="adminName"> 결재권자 : </label>
+                    <select id="adminName" name="adminName">
+                        <option value="회장">회장</option>
+                        <option value="학장">학장</option>
+                        </optgroup>
+                    </select>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="True" id="elec" checked>
+                        <label class="form-check-label" for="elec">
+                            전자여부
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="True" id="openDoc" checked>
+                        <label class="form-check-label" for="openDoc">
+                            공개여부
+                        </label>
+                    </div>
+                    <div class="wi_line"></div>
+                    <div>
+                        <textarea name="content" id="other" placeholder="비고" required></textarea>
+                    </div>
+
+                    <input type="file" name="SelectFile"/>
+                </form>
+            </div>
+        </div>
+        <div id="board_write1" style="justify-content: center; height: 250px; background-color: white;">
+            <h4>필수 입력항목</h4>
+            <div id="write_area1">
+                <form enctype="multipart/form-data" action="write_ok.php?board_id=<?echo $board_id;?>" method="post">
+                    <div>
+                        <textarea name="title" id="docSubject" rows="1" cols="55" placeholder="제목" maxlength="100"
+                                  required></textarea>
+                    </div>
+                    <div>
+                        <textarea name="title" id="name" rows="1" cols="55" placeholder="기안자" maxlength="100"
+                                  required></textarea>
+                    </div>
+                    <div>
+                        <textarea name="title" id="sendName" rows="1" cols="55" placeholder="수신자/발신자" maxlength="100"
+                                  required></textarea>
+                    </div>
+                    <div class="bt_se" style="float: right;">
+                        <button id="button_join" type="button" class="btn btn-primary">글 작성</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </dib>
+</dib>
+
+
+<!-- Optional JavaScript; choose one of the two! -->
+<script>
+    $('#button_join').on('click',()=>{
+        console.log('클릭했다.');
+        let type = $('#type').val();
+        let depart = $('#depart').val();
+        let docNum = $('#docNum').val();
+        let docSubject = $('#docSubject').val();
+        let adminName = $('#adminName').val();
+        let name = $('#name').val();
+        let sendName = $('#sendName').val();
+        let elec = $('#elec').val();
+        let openDoc = $('#openDoc').val();
+        let other = $('#other').val();
+
+        $.ajax({
+            url: "/content/create",
+            data: {
+                    type:type,
+                    depart:depart,
+                    docNum:docNum,
+                    docSubject:docSubject,
+                    adminName:adminName,
+                    name:name,
+                    sendName:sendName,
+                    elec:elec,
+                    openDoc:openDoc,
+                    other:other
+            },
+            method: "POST",
+            dataType: "json",
+            success: function (data){
+                alert("작성 완료 !");
+                location.replace('{% url 'main' 0 %}');
+            },
+            error:function (request, status, error){
+                let data = JSON.parse(request.responseText);
+                console.log(data.message);
+                alert(data.message);
+            }
+        });
+    });
+</script>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+-->
+</body>
+</html>

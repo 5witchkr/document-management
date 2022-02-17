@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- jquery 사용하기 위해 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <title>문서 상세 페이지</title>
+  </head>
+  <body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed; width: 100%">
+      <div class="container-fluid">
+          <a class="navbar-brand" href="main0">USGTF-KOREA</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="#">Null</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">Null</a>
+                  </li>
+              </ul>
+              <form class="d-flex">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+          </div>
+      </div>
+  </nav>
+
+  <dib style="display: flex; justify-content: center; padding-top: 100px; background-color: #E0E0E0">
+      <dib style="width: 900px; height: 1000px;">
+          <div style="width: 900px; height: 700px; background-color: white; ">
+              {% for Doc in DocList %}
+              <div>
+                  <table class="table table-striped">
+                      <thead>
+                      <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">내용</th>
+                          <th scope="col"></th>
+                          <th scope="col">설명</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                          <th scope="row">문서ID값</th>
+                          <td colspan="2">{{Doc.docID}}</td>
+                          <td>문서DB의 ID값</td>
+                      </tr>
+                      <tr>
+                          <th scope="row">관리코드</th>
+                          <td colspan="2">{{Doc.titleNum}}</td>
+                          <td>고유관리코드</td>
+                      </tr>
+                      <tr>
+                          <th scope="row">구분</th>
+                          <td colspan="2">{{Doc.type}}</td>
+                          <td>생산/접수</td>
+                      </tr>
+                      <tr>
+                          <th scope="row">상세업무명</th>
+                          <td colspan="2">{{Doc.depart}}</td>
+                          <td>담당 부서</td>
+                      </tr>
+                      <tr>
+                          <th scope="row">접수일자</th>
+                          <td colspan="2">{{Doc.date}}</td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <th scope="row">시행일자</th>
+                          <td colspan="2">{{Doc.date}}</td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <th scope="row">문서생성번호</th>
+                          <td colspan="2">{{Doc.title}}</td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <th scope="row">문서구분1</th>
+                          <td colspan="2">{{Doc.docNum}}</td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <th scope="row">제목</th>
+                          <td colspan="2">{{Doc.docSubject}}</td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <th scope="row">결재권자</th>
+                          <td colspan="2">{{Doc.adminName}}</td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <th scope="row">기안자</th>
+                          <td colspan="2">{{Doc.name}}</td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <th scope="row">수신자/발신자</th>
+                          <td colspan="2">{{Doc.sendName}}</td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <th scope="row">전자서류여부</th>
+                          <td colspan="2">{{Doc.elec}}</td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <th scope="row">공개여부</th>
+                          <td colspan="2">{{Doc.openDoc}}</td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <th scope="row">비고사항</th>
+                          <td colspan="2">{{Doc.other}}</td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <th scope="row">첨부파일</th>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                      </tr>
+                      </tbody>
+                  </table>
+              </div>
+              {% endfor %}
+          </div>
+          <div>
+              <button id="button_del" type="button" class="btn btn-danger" style="float: right;">삭제하기</button>
+              <textarea name="title" id="DocId" rows="1" cols="15" placeholder="문서ID값 확인" maxlength="100" style="float: right;"required></textarea>
+          </div>
+      </dib>
+  </dib>
+
+
+  <!-- Optional JavaScript; choose one of the two! -->
+  <script>
+  $('#button_del').on('click',()=>{
+  console.log('클릭했다.');
+  let DocId = $('#DocId').val();
+  console.log(DocId)
+
+  $.ajax({
+  url: "/content/delete",
+  data: {
+  DocId:DocId,
+  },
+  method: "POST",
+  dataType: "json",
+  success: function (data){
+  alert("삭제 완료 !");
+  location.replace('{% url 'main' 0 %}');
+  },
+  error:function (request, status, error){
+  let data = JSON.parse(request.responseText);
+  console.log(data.message);
+  alert(data.message);
+  }
+  });
+  });
+  </script>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
